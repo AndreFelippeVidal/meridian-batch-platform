@@ -20,6 +20,10 @@ transform/dbt_packages/
 transform/target/
 transform/logs/
 transform/edr_target/
-# evidence build
+# evidence build + generated source data
 serving/node_modules/
 serving/.evidence/
+serving/build/
+serving/.evidence-queries/
+# Evidence stores generated source parquet files here; regenerate with make evidence-sources
+serving/sources/meridian/.evidence-queries/

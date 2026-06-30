@@ -1,6 +1,6 @@
 .PHONY: setup lint fmt typecheck test run clean ingest verify-ingest dagster-dev \
         dbt-deps transform dbt-test dbt-docs materialize-all edr-report \
-        ingest-iceberg iceberg-demo
+        ingest-iceberg iceberg-demo evidence-sources evidence-dev evidence-build
 # uv handles venv + lockfile + installs. https://docs.astral.sh/uv/
 
 setup:          ## create venv, install deps, install pre-commit hooks
@@ -58,6 +58,15 @@ ingest-iceberg: ## write orders + order_items as Iceberg tables (local FS + SQLi
 
 iceberg-demo:   ## schema-evolution + time-travel + DuckDB scan demo
 	uv run python ingestion/iceberg_demo.py
+
+evidence-sources: ## pull data from DuckDB into Evidence source parquet files
+	cd serving && npm run sources
+
+evidence-dev:     ## start Evidence dev server (hot reload)
+	cd serving && npm run dev
+
+evidence-build:   ## build Evidence static site
+	cd serving && npm run build
 
 clean:
 	rm -rf .venv .pytest_cache .mypy_cache .ruff_cache __pycache__ */__pycache__
