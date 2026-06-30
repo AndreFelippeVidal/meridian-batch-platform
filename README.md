@@ -6,7 +6,7 @@
 ![Python](https://img.shields.io/badge/python-3.12-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-**Live demo:** [meridian-batch.vercel.app](https://meridian-batch.vercel.app) · **Write-up:** [LinkedIn](#) · **Demo GIF below.**
+**Live demo:** [meridian-batch-platform.vercel.app](https://meridian-batch-platform.vercel.app) · **Write-up:** [LinkedIn](#) · **Demo GIF below.**
 
 ![demo](docs/demo.gif)
 
@@ -136,7 +136,7 @@ data is frozen) but means you must re-run sources after every `make transform`.
 - [x] Phase F — Elementary data quality (edr report, bad-row roundtrip test)
 - [x] Phase G — Iceberg taste (schema evolution, time-travel, DuckDB scan)
 - [x] Phase H — Evidence dashboard (4 pages, Vercel deploy)
-- [ ] Phase I — Vercel live URL, final CI, LinkedIn post
+- [x] Phase I — [Live dashboard](https://meridian-batch-platform.vercel.app), ADRs, README, LinkedIn post
 
 ---
 Part of a modern data + AI platform portfolio. See the [profile hub](https://github.com/AndreFelippeVidal) for the full story.
