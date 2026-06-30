@@ -1,5 +1,5 @@
 .PHONY: setup lint fmt typecheck test run clean ingest verify-ingest dagster-dev \
-        dbt-deps transform dbt-test dbt-docs materialize-all
+        dbt-deps transform dbt-test dbt-docs materialize-all edr-report
 # uv handles venv + lockfile + installs. https://docs.astral.sh/uv/
 
 setup:          ## create venv, install deps, install pre-commit hooks
@@ -45,6 +45,12 @@ dbt-docs:       ## generate dbt docs (open target/index.html to browse)
 
 materialize-all: ## materialize full Dagster graph — dlt raw → dbt staging → marts
 	uv run dagster asset materialize --select '*' -m orchestration.definitions
+
+edr-report:     ## generate Elementary data quality HTML report
+	cd transform && DUCKDB_PATH="$(shell pwd)/data/meridian.duckdb" \
+	uv run edr report \
+	  --profiles-dir . --profile-target duckdb --project-dir . \
+	  --file-path edr_target/elementary_report.html
 
 clean:
 	rm -rf .venv .pytest_cache .mypy_cache .ruff_cache __pycache__ */__pycache__

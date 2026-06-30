@@ -8,6 +8,7 @@ from dagster_dbt import DbtCliResource
 from dagster_dlt import DagsterDltResource
 
 from orchestration.assets.ingest import meridian_dlt_assets
+from orchestration.assets.quality import elementary_report_asset
 from orchestration.assets.transform import TRANSFORM_DIR, meridian_dbt_assets
 
 _DB_PATH = Path(__file__).parent.parent / "data" / "meridian.duckdb"
@@ -51,7 +52,7 @@ materialize_all_job = dg.define_asset_job(
 # ── Top-level Definitions ─────────────────────────────────────────────────────
 
 defs = dg.Definitions(
-    assets=[meridian_dlt_assets, meridian_dbt_assets],
+    assets=[meridian_dlt_assets, meridian_dbt_assets, elementary_report_asset],
     asset_checks=[check_daily_mart_has_rows, check_fct_orders_has_rows],
     jobs=[materialize_all_job],
     resources={

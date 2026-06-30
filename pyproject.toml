@@ -13,6 +13,7 @@ dependencies = [
     "dbt-core>=1.9",
     "dbt-duckdb>=1.9",
     "dagster-dbt>=0.25",
+    "elementary-data[duckdb]>=0.16",
 ]
 
 [dependency-groups]
