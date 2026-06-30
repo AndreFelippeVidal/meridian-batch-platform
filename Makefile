@@ -1,5 +1,6 @@
 .PHONY: setup lint fmt typecheck test run clean ingest verify-ingest dagster-dev \
-        dbt-deps transform dbt-test dbt-docs materialize-all edr-report
+        dbt-deps transform dbt-test dbt-docs materialize-all edr-report \
+        ingest-iceberg iceberg-demo
 # uv handles venv + lockfile + installs. https://docs.astral.sh/uv/
 
 setup:          ## create venv, install deps, install pre-commit hooks
@@ -51,6 +52,12 @@ edr-report:     ## generate Elementary data quality HTML report
 	uv run edr report \
 	  --profiles-dir . --profile-target duckdb --project-dir . \
 	  --file-path edr_target/elementary_report.html
+
+ingest-iceberg: ## write orders + order_items as Iceberg tables (local FS + SQLite catalog)
+	uv run python -m ingestion.iceberg_pipeline
+
+iceberg-demo:   ## schema-evolution + time-travel + DuckDB scan demo
+	uv run python ingestion/iceberg_demo.py
 
 clean:
 	rm -rf .venv .pytest_cache .mypy_cache .ruff_cache __pycache__ */__pycache__
