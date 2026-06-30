@@ -1,4 +1,4 @@
-.PHONY: setup lint fmt typecheck test run clean
+.PHONY: setup lint fmt typecheck test run clean ingest verify-ingest dagster-dev
 # uv handles venv + lockfile + installs. https://docs.astral.sh/uv/
 
 setup:          ## create venv, install deps, install pre-commit hooks
@@ -20,6 +20,15 @@ test:           ## run tests with coverage
 
 run:            ## run the project entrypoint
 	uv run python -m project
+
+ingest:         ## load Meridian domain data into DuckDB raw schema
+	uv run python -m ingestion.pipeline
+
+verify-ingest:  ## run ingestion pytest gate
+	uv run pytest tests/test_ingestion.py -v
+
+dagster-dev:    ## launch Dagster UI (Ctrl-C to stop)
+	uv run dagster dev -m orchestration.definitions
 
 clean:
 	rm -rf .venv .pytest_cache .mypy_cache .ruff_cache __pycache__ */__pycache__

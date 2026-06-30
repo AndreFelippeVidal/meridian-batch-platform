@@ -1,11 +1,15 @@
 [project]
-name = "meridian-project"
+name = "meridian-batch-platform"
 version = "0.1.0"
-description = "A project in the Meridian data + AI platform portfolio"
+description = "Meridian P1 — complete modern data stack: dlt → DuckDB → dbt → Dagster → Evidence"
 requires-python = ">=3.12"
 dependencies = [
-    "meridian-core @ git+https://github.com/AndreFelippeVidal/meridian-core@v0.1.0",
+    "meridian-core @ git+https://github.com/AndreFelippeVidal/meridian-core@v0.2.0",
     "duckdb>=1.0",
+    "dlt[duckdb]>=1.4",
+    "dagster>=1.9",
+    "dagster-dlt>=0.25",
+    "dagster-webserver>=1.9",
 ]
 
 [dependency-groups]
@@ -33,6 +37,7 @@ ignore_missing_imports = true
 [tool.pytest.ini_options]
 addopts = "-q --cov=src --cov-report=term-missing"
 testpaths = ["tests"]
+pythonpath = ["."]
 
 [build-system]
 requires = ["hatchling"]

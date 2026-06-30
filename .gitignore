@@ -7,5 +7,19 @@ __pycache__/
 .coverage
 data/*.parquet
 data/*.duckdb
+data/iceberg/
 .env
 .DS_Store
+# dlt pipeline state
+.dlt/
+# dagster local storage
+$DAGSTER_HOME/
+.dagster/
+# dbt artifacts
+transform/dbt_packages/
+transform/target/
+transform/logs/
+transform/edr_target/
+# evidence build
+serving/node_modules/
+serving/.evidence/
