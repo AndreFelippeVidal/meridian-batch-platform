@@ -12,6 +12,7 @@ dependencies = [
     "dagster-webserver>=1.9",
     "dbt-core>=1.9",
     "dbt-duckdb>=1.9",
+    "dagster-dbt>=0.25",
 ]
 
 [dependency-groups]

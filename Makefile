@@ -1,5 +1,5 @@
 .PHONY: setup lint fmt typecheck test run clean ingest verify-ingest dagster-dev \
-        dbt-deps transform dbt-test dbt-docs
+        dbt-deps transform dbt-test dbt-docs materialize-all
 # uv handles venv + lockfile + installs. https://docs.astral.sh/uv/
 
 setup:          ## create venv, install deps, install pre-commit hooks
@@ -42,6 +42,9 @@ dbt-test:       ## run dbt tests only
 
 dbt-docs:       ## generate dbt docs (open target/index.html to browse)
 	cd transform && uv run dbt docs generate --profiles-dir . && uv run dbt docs serve --profiles-dir .
+
+materialize-all: ## materialize full Dagster graph — dlt raw → dbt staging → marts
+	uv run dagster asset materialize --select '*' -m orchestration.definitions
 
 clean:
 	rm -rf .venv .pytest_cache .mypy_cache .ruff_cache __pycache__ */__pycache__
